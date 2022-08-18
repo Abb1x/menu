@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./gamecontroller.min.js"></script>
+    <script>
+        const ids = ["power", "steam", "exit"]
+        current_id = 0;
+
+        function moveRight() {
+            // Remove the button_hover class from the previously selected element
+            document.getElementById(ids[current_id]).classList.remove("button_hover");
+
+            // Add the button_hover class to the now selected element
+            current_id = (current_id + 1) % ids.length;
+            document.getElementById(ids[current_id]).classList.add("button_hover");
+
+        }
+
+        function moveLeft() {
+            // Remove the button_hover class from the previously selected element
+            document.getElementById(ids[current_id]).classList.remove("button_hover");
+
+            // Add the button_hover class to the now selected element
+            current_id--;
+
+            if (current_id < 0) {
+                current_id = ids.length - 1;
+            }
+
+            document.getElementById(ids[current_id]).classList.add("button_hover");
+        }
+
+        function buttonPressed() {
+            if (current_id == 0) {
+                pywebview.api.execute("dummy");
+            } else if (current_id == 1) {
+                pywebview.api.execute("steamlink");
+            } else {
+                pywebview.api.destroy();
+            }
+        }
+
+
+        gameControl.on('connect', function (gamepad) {
+            document.getElementById(ids[current_id]).classList.add("button_hover");
+            gamepad.after('r2', moveRight);
+            gamepad.after('l2', moveLeft);
+            gamepad.before('button1', buttonPressed);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="buttons" class="flex items-center justify-center h-screen">
+        <button id="power" class="button">power_settings_new</button>
+        <button id="steam" class="button">sports_esports</button>
+        <button id="exit" class="button">logout</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+body {
+    background-color: #22272C;
+}
+
+.button {
+    background-color: #383C40;
+    font-family: "Material Icons";
+    border: 1px;
+    border-color: #383C40;
+    color: #4C4F52;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 10em;
+    margin-right: 0.3em;
+}
+
+.button_hover {
+    border: 3px solid;
+    border-color: #FCFBF8;
+    color: #FCFBF8;
+}
